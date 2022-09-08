@@ -13,8 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User{
-	
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +27,9 @@ public class User{
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date DOB;
+
 	private String pass;
-	
+	private String newpass;
 
 	public User(String fullname, String email, String phone, String country, Date dOB, String pass) {
 		super();
@@ -41,9 +41,14 @@ public class User{
 		this.pass = pass;
 	}
 
+	public User(String pass, String newpass) {
+		super();
+		this.pass = pass;
+		this.newpass = newpass;
+	}
+
 	public User() {
 	}
-	
 
 	public String getFullname() {
 		return fullname;
@@ -91,6 +96,14 @@ public class User{
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public String getNewpass() {
+		return newpass;
+	}
+
+	public void setNewpass(String newpass) {
+		this.newpass = newpass;
 	}
 
 }

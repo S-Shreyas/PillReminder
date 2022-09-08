@@ -15,7 +15,9 @@ public class UserLoginDTO {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date DOB;
+
 	private String pass;
+	private String newpass;
 
 	public UserLoginDTO() {
 	}
@@ -35,6 +37,8 @@ public class UserLoginDTO {
 		DOB = dOB;
 		this.pass = pass;
 	}
+
+	
 
 	public String getFullname() {
 		return fullname;
@@ -82,6 +86,14 @@ public class UserLoginDTO {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public String getNewpass() {
+		return newpass;
+	}
+
+	public void setNewpass(String newpass) {
+		this.newpass = newpass;
 	}
 
 }

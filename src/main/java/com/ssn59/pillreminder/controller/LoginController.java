@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssn59.pillreminder.User;
 import com.ssn59.pillreminder.services.UserServicesImpl;
+import com.ssn59.pillreminder.userlogindao.UserLoginDAO;
 import com.ssn59.pillreminder.userlogindto.UserLoginDTO;
 
 @Controller
@@ -18,6 +20,9 @@ public class LoginController {
 
 	@Autowired
 	UserServicesImpl userServicesImpl;
+
+	@Autowired
+	UserLoginDAO userLoginDAO;
 
 	private String userEmail;
 
@@ -58,6 +63,7 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String login() {
+		System.out.println("Inside login");
 		return "login";
 	}
 
@@ -65,12 +71,12 @@ public class LoginController {
 	public String logger(Model model, @RequestParam String email, @RequestParam String pass) {
 
 		Boolean tracker = userServicesImpl.userValidation(email, pass);
+		System.out.println("Inside logger");
 
 		if (tracker) {
 
 			userEmail = email;
 			User user = new User();
-			System.out.println(userEmail);
 			model.addAttribute("user", user);
 			model.addAttribute("users", userServicesImpl.viewCurrentPerson(userEmail));
 			return "homepage";
@@ -86,21 +92,39 @@ public class LoginController {
 
 	@RequestMapping("/logout")
 	public String getHomepage() {
-		
-		
-		
-		userEmail=null;
+
+		userEmail = null;
 
 		return "login";
 
 	}
 
-//	@PutMapping("/resetpass")
-//	public String changeUserPassword(Map<String, String> body) {
-//
-//		System.out.println("changeUserPassword");
-//		return userServicesImpl.changePass(body);
-//
-//	}
+	@GetMapping("/resetpass")
+	public String resetPassShow(Model model) {
+		
+		System.out.println("Inside resetPassShow");
+
+		return "resetpass";
+	}
+
+	@PutMapping("/resetpass")
+	public String resetPassKaro(Model model, @RequestParam String pass, @RequestParam String newpass) {
+		
+		System.out.println("Inside resetPassKaro");
+		
+		if (userServicesImpl.verifyPass(pass, userEmail)) {
+
+			User dto = userLoginDAO.findByEmail(userEmail);
+			
+
+			dto.setPass(newpass);
+			userLoginDAO.save(dto);
+			return "login";
+
+		}
+
+		return "redirect:/resetpass?error";
+
+	}
 
 }

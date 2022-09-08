@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ResetPass</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<body>
+
+	<h1>RESET Password</h1>
+
+	<form th:action="@{/resetpass}" th:method="put" th:object="${user}">
+	
+
+		<div th:if="${param.error}">
+			<div class="alert alert-danger">Invalid Password</div>
+		</div>
+
+		<div class="content">
+			<div class="input-field">
+				<input type="password" placeholder="Current Password" id="pass"
+					name="pass" th:field="*{pass}">
+			</div>
+
+			<div class="input-field">
+				<input type="password" placeholder="New Password" id="pass"
+					name="newpass" th:field="*{newpass}">
+			</div>
+			<div class="input-field">
+				<input type="password" placeholder="Repeat New Password" id="repNewPass"
+					name="repNewPass">
+			</div>
+		</div>
+		<div class="action">
+			<button type="submit" name="loginSubmit" id="loginSubmit">Go</button>
+		</div>
+	</form>
+
+
+</body>
+</html>

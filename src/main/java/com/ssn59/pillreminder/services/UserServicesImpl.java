@@ -42,23 +42,21 @@ public class UserServicesImpl {
 		return userLoginDAO.save(user);
 	}
 
-
 	public String changePass(UserLoginDTO userLoginDTO) {
-		
-		
-		
-		
+
 		return "";
 
 	}
+
 	public Boolean userExist(String email) {
 
 		return userLoginDAO.existsByEmail(email);
 	}
+
 	public Boolean phoneExists(String phone) {
-		
+
 		return userLoginDAO.existsByPhone(phone);
-		
+
 	}
 
 	public Boolean userValidation(String email, String pass) {
@@ -77,7 +75,19 @@ public class UserServicesImpl {
 	}
 
 	public User viewCurrentPerson(String email) {
-		
+
 		return userLoginDAO.findByEmail(email);
+	}
+
+	public Boolean verifyPass(String pass, String email) {
+		
+		System.out.println("Inside verifyPass");
+
+		User dto = userLoginDAO.findByEmail(email);
+		if (pass.equals(dto.getPass())) {
+			return true;
+
+		}
+		return false;
 	}
 }
