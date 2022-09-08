@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>LoginPage</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<body>
+
+	<div class="login-form">
+		<form th:action="@{/login}" method="post" th:object="${user}">
+
+			<div th:if="${param.error}">
+				<div class="alert alert-danger">Invalid UID/Password</div>
+			</div>
+
+
+			<h1>Login</h1>
+
+			<div class="content">
+				<div class="input-field">
+					<input type="email" placeholder="Email" id="email"
+						name="email" th:field="*{email}">
+				</div>
+
+				<div class="input-field">
+					<input type="password" placeholder="Password" id="pass" name="pass"
+						th:field="*{pass}">
+				</div>
+				<a href="/forgotpass" class="link">Forgot Your Password?</a>
+			</div>
+			<div class="action">
+				<span><a href="/" th:href="@{/register}"> Register </a></span>
+				<button type="submit" name="loginSubmit" id="loginSubmit">Sign
+					in</button>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
