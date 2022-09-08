@@ -38,8 +38,6 @@ public class UserLoginDTO {
 		this.pass = pass;
 	}
 
-	
-
 	public String getFullname() {
 		return fullname;
 	}

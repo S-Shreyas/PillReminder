@@ -5,11 +5,12 @@ import com.ssn59.pillreminder.userlogindto.UserLoginDTO;
 
 public interface UserServices{
 	
-	//public Boolean userExists(String email);
-	//public int userValidation(String email, String inPass);
-	//public String userLogin(@RequestBody Map<String, String> body);
+	public String userLogin(UserLoginDTO userLoginDTO);
 	public User save(UserLoginDTO userLoginDTO);
-	//public UserLoginDTO save()
-	//public ModelAndView viewOne(@PathVariable String email);
-	//public String changePass(@RequestBody Map<String, String> body);	
+	public Boolean userExist(String email);
+	public Boolean phoneExists(String phone);
+	public Boolean userValidation(String email, String pass);
+	public User viewCurrentPerson(String email);
+	public Boolean verifyPass(String pass, String email);
 }
+	

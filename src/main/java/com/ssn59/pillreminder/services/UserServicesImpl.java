@@ -8,11 +8,12 @@ import com.ssn59.pillreminder.userlogindao.UserLoginDAO;
 import com.ssn59.pillreminder.userlogindto.UserLoginDTO;
 
 @Service
-public class UserServicesImpl {
+public class UserServicesImpl implements UserServices {
 
 	@Autowired
 	UserLoginDAO userLoginDAO;
 
+	@Override
 	public String userLogin(UserLoginDTO userLoginDTO) {
 
 		Boolean validationID = userValidation(userLoginDTO.getEmail(), userLoginDTO.getPass());
@@ -33,7 +34,7 @@ public class UserServicesImpl {
 //	 "pass" : "asa",
 //	 "DOB" : "1999-02-29"
 //	 }
-
+	@Override
 	public User save(UserLoginDTO userLoginDTO) {
 
 		User user = new User(userLoginDTO.getFullname(), userLoginDTO.getEmail(), userLoginDTO.getPhone(),
@@ -42,23 +43,20 @@ public class UserServicesImpl {
 		return userLoginDAO.save(user);
 	}
 
-	public String changePass(UserLoginDTO userLoginDTO) {
-
-		return "";
-
-	}
-
+	@Override
 	public Boolean userExist(String email) {
 
 		return userLoginDAO.existsByEmail(email);
 	}
 
+	@Override
 	public Boolean phoneExists(String phone) {
 
 		return userLoginDAO.existsByPhone(phone);
 
 	}
 
+	@Override
 	public Boolean userValidation(String email, String pass) {
 
 		if (userLoginDAO.existsByEmail(email)) {
@@ -74,13 +72,15 @@ public class UserServicesImpl {
 		return false;
 	}
 
+	@Override
 	public User viewCurrentPerson(String email) {
 
 		return userLoginDAO.findByEmail(email);
 	}
 
+	@Override
 	public Boolean verifyPass(String pass, String email) {
-		
+
 		System.out.println("Inside verifyPass");
 
 		User dto = userLoginDAO.findByEmail(email);
