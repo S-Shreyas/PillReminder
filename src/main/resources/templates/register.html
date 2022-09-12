@@ -44,6 +44,13 @@
 				<div class="alert alert-info center-block">Phone Exists</div>
 
 			</div>
+			
+			<div th:if="${param.passnomatch}">
+
+				<div class="alert alert-info center-block">Passwords Don't match</div>
+
+			</div>
+
 			<div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
 				<section class="container mt-5">
@@ -88,7 +95,8 @@
 							<div class="mb-3">
 								<label for="confirm_pass" class="form-label">Confirm
 									Password</label> <input type="password" class="form-control"
-									id="confirm_pass" required autofocus="autofocus" />
+									id="confirm_pass" required autofocus="autofocus"
+									th:field="*{newpass}" />
 							</div>
 							<div class="text-center mt-3">
 								<button type="submit" class="btn btn-primary btn-rounded w-75">Register</button>

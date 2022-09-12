@@ -12,10 +12,13 @@
 	<h1>RESET Password</h1>
 
 	<form th:action="@{/resetpass}" th:method="put" th:object="${user}">
-	
+
 
 		<div th:if="${param.error}">
 			<div class="alert alert-danger">Invalid Password</div>
+		</div>
+		<div th:if="${param.passnomatch}">
+			<div class="alert alert-danger">Passwords Don't match</div>
 		</div>
 
 		<div class="content">
@@ -29,8 +32,8 @@
 					name="newpass" th:field="*{newpass}">
 			</div>
 			<div class="input-field">
-				<input type="password" placeholder="Repeat New Password" id="repNewPass"
-					name="repNewPass">
+				<input type="password" placeholder="Repeat New Password"
+					id="repNewPass" name="repNewPass" th:field="*{repnewpass}">
 			</div>
 		</div>
 		<div class="action">

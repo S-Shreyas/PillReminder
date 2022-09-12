@@ -53,6 +53,9 @@ public class LoginController {
 
 			return "redirect:/register?errorphone";
 
+		} else if (!userLoginDTO.getPass().equals(userLoginDTO.getNewpass())) {
+			
+			return "redirect:/register?passnomatch";
 		}
 
 		userServicesImpl.save(userLoginDTO);
@@ -101,29 +104,35 @@ public class LoginController {
 
 	@GetMapping("/resetpass")
 	public String resetPassShow(Model model) {
-		
+
 		System.out.println("Inside resetPassShow");
 
 		return "resetpass";
 	}
 
 	@PutMapping("/resetpass")
-	public String resetPassKaro(Model model, @RequestParam String pass, @RequestParam String newpass) {
-		
+	public String resetPassKaro(Model model, @RequestParam String pass, @RequestParam String newpass,
+			@RequestParam String repnewpass) {
+
 		System.out.println("Inside resetPassKaro");
-		
-		if (userServicesImpl.verifyPass(pass, userEmail)) {
 
-			User dto = userLoginDAO.findByEmail(userEmail);
+		if (newpass.equals(repnewpass)) {
+
+			if (userServicesImpl.verifyPass(pass, userEmail)) {
+
+				User dto = userLoginDAO.findByEmail(userEmail);
+
+				dto.setPass(newpass);
+				userLoginDAO.save(dto);
+				return "login";
+
+			}else {
+				return "redirect:/resetpass?error";
+			}
 			
-
-			dto.setPass(newpass);
-			userLoginDAO.save(dto);
-			return "login";
-
 		}
 
-		return "redirect:/resetpass?error";
+		return "redirect:/resetpass?passnomatch";
 
 	}
 
